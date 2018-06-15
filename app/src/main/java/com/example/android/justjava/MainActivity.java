@@ -59,13 +59,13 @@ public class MainActivity extends AppCompatActivity {
         String priceMessage = createOrderASummary(customerName, price, isCheckedItem01, isCheckedItem02);
         displayMessage(priceMessage);
 
-        String[] mailAddresses = {"ovarb6@gmail.com"};
-        String mailSubject = getString(R.string.app_name) + ": " + customerName + " orders " + quantity + " cups of coffee";
+        //String[] mailAddresses = {"ovarb6@gmail.com"};
+        String mailSubject = getResources().getString(R.string.app_name) + " order for " + customerName + " (" + quantity + " cups of coffee)";
         Log.i("MainActivity", "Mail subject string: " + mailSubject);
 
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-        intent.putExtra(Intent.EXTRA_EMAIL, mailAddresses);
+        //intent.putExtra(Intent.EXTRA_EMAIL, mailAddresses);
         intent.putExtra(Intent.EXTRA_SUBJECT, mailSubject);
         intent.putExtra(Intent.EXTRA_TEXT, priceMessage);
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         message += "\n" + "Add chocolate? " + isCheckedOption02;
         message += "\n" + "Quantity: " + quantity;
         message += "\n" + "Total: " + "$" + price;
-        message += "\n" + "Thank you!";
+        message += "\n" + getResources().getString(R.string.thank_you);
         return message;
     }
 

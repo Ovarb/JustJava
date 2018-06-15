@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">JustJava</string>
+    <string name="tw_qnt_name">Количество</string>
+    <string name="tw_top_name">Чем полить?</string>
+    <string name="tw_price_name">Ваш заказ</string>
+    <string name="cb_item_01">Кислая сметана</string>
+    <string name="cb_item_02">Семечки</string>
+    <string name="btn_order_name">Заказывайте</string>
+    <string name="field_name_hint">Имя</string>
+    <string name="thank_you">Благодарствую!</string>
+</resources>
