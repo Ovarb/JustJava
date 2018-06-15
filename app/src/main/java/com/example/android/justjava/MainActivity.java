@@ -11,6 +11,8 @@ package com.example.android.justjava;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,8 +30,8 @@ import java.util.jar.Attributes;
  */
 public class MainActivity extends AppCompatActivity {
 
+    //initiate an order from 2 cups of coffee
     int quantity = 2;
-    int price = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +58,24 @@ public class MainActivity extends AppCompatActivity {
         int price = calculatePrice(isCheckedItem01, isCheckedItem02);
         String priceMessage = createOrderASummary(customerName, price, isCheckedItem01, isCheckedItem02);
         displayMessage(priceMessage);
+
+        String[] mailAddresses = {"ovarb6@gmail.com"};
+        String mailSubject = getString(R.string.app_name) + ": " + customerName + " orders " + quantity + " cups of coffee";
+        Log.i("MainActivity", "Mail subject string: " + mailSubject);
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, mailAddresses);
+        intent.putExtra(Intent.EXTRA_SUBJECT, mailSubject);
+        intent.putExtra(Intent.EXTRA_TEXT, priceMessage);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            this.startActivity(intent);
+        }
     }
 
     /**
      * This method calculates totalPrice
-     *
      *
      * @param isCheckedOption01 whether or not topping01 is added
      * @param isCheckedOption02 whether or not topping01 is added
@@ -72,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         int totalPrice;
 
         basePrice = 5;
+
         if (isCheckedOption01) {
             basePrice += 1;
         }
@@ -90,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Create summary of the order
-     *
      *
      * @param customerName of the buyer
      * @param price of the order
@@ -151,14 +166,6 @@ public class MainActivity extends AppCompatActivity {
     private void display(int number) {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
         quantityTextView.setText("" + number);
-    }
-
-    /**
-     * This method displays the given price on the screen.
-     */
-    private void displayPrice(int number) {
-        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText(NumberFormat.getCurrencyInstance().format(number));
     }
 
     /**
