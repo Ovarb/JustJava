@@ -8,4 +8,5 @@
     <string name="btn_incr_name">+</string>
     <string name="btn_decr_name">-</string>
     <string name="btn_order_name">Order</string>
+    <string name="field_name_hint">Name</string>
 </resources>
